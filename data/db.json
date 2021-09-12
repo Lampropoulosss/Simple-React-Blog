@@ -1,0 +1,10 @@
+{
+  "blogs": [
+    {
+      "title": "Simple blog project using React",
+      "body": "This project was created by John using React.",
+      "author": "John",
+      "id": 1
+    }
+  ]
+}
