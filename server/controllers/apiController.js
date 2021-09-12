@@ -4,10 +4,10 @@ const keys = require("../config/keys");
 
 // MySQL
 const connection = mysql.createConnection({
-  host: keys.host,
-  user: keys.user,
-  password: keys.password,
-  database: keys.database,
+  host: keys.sql.host,
+  user: keys.sql.user,
+  password: keys.sql.password,
+  database: keys.sql.database,
 });
 
 connection.connect(() => {
