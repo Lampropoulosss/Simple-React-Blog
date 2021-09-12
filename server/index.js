@@ -7,9 +7,7 @@ const port = process.env.port || 8000;
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(
-  cors({ origin: "http://localhost:3000", methods: ["GET", "POST", "DELETE"] })
-);
+app.use(cors({ origin: "*", methods: ["GET", "POST", "DELETE"] }));
 
 // Routes
 app.use("/api", require("./routes/apiRoutes"));
