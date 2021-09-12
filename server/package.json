@@ -1,0 +1,17 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Server for a Blog Application",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ."
+  },
+  "author": "John Lampropoulos",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mysql": "^2.18.1",
+    "uuid": "^8.3.2"
+  }
+}
