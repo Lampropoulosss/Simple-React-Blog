@@ -70,24 +70,32 @@
   cursor: pointer;
 }
 
-/* create new blog form */
-.create {
+/* create new blog form / register / login */
+.create,
+.register,
+.login {
   max-width: 400px;
   margin: 0 auto;
   text-align: center;
 }
-.create label {
+.create label,
+.register label,
+.login label {
   text-align: left;
   display: block;
 }
-.create h2 {
+.create h2,
+.register h2,
+.login h2 {
   font-size: 20px;
   color: #0096ff;
   margin-bottom: 30px;
 }
 .create input,
 .create textarea,
-.create select {
+.create select,
+.register input,
+.login input {
   width: 100%;
   padding: 6px 10px;
   margin: 10px 0;
@@ -96,13 +104,22 @@
   display: block;
   resize: vertical;
 }
-.create button {
+.create button,
+.register button,
+.login button {
   background: #0096ff;
   color: #fff;
   border: 0;
   padding: 8px;
   border-radius: 8px;
   cursor: pointer;
+}
+
+.create .error,
+.register .error,
+.login .error {
+  color: #f56;
+  margin: 20px 0;
 }
 
 /* 404 Page */

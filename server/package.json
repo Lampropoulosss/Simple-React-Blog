@@ -9,8 +9,11 @@
   "author": "John Lampropoulos",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "jose": "^3.17.0",
     "mysql": "^2.18.1",
     "uuid": "^8.3.2"
   }

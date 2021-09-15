@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom";
 
 const Create = () => {
+  const [error, setError] = useState("");
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [author, setAuthor] = useState("John");
@@ -23,16 +24,30 @@ const Create = () => {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify(blog),
-    }).then(() => {
-      setIsPending(false);
-      history.push("/");
-    });
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.error) {
+          setError(data.error);
+          setIsPending(false);
+          return;
+        }
+
+        setIsPending(false);
+        history.push("/");
+      });
   };
 
   return (
     <div className="create">
       <h2>Add a New Blog</h2>
+      {error && (
+        <div>
+          <p className="error">{error}</p>
+        </div>
+      )}
       <form onSubmit={handleSubmit}>
         <label>Blog Title:</label>
         <input

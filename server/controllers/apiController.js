@@ -1,18 +1,5 @@
-const mysql = require("mysql");
 const { v4: uuidv4 } = require("uuid");
-const keys = require("../config/keys");
-
-// MySQL
-const connection = mysql.createConnection({
-  host: keys.sql.host,
-  user: keys.sql.user,
-  password: keys.sql.password,
-  database: keys.sql.database,
-});
-
-connection.connect(() => {
-  console.log(`MySQL connected...`);
-});
+const connection = require("../sql/connection");
 
 // Get All Blogs
 const getBlogs = (req, res) => {

@@ -4,6 +4,9 @@ import Home from "./Home";
 import Create from "./Create";
 import BlogDetails from "./BlogDetails";
 import NotFound from "./NotFound";
+import Register from "./Register";
+import Login from "./Login";
+import Logout from "./Logout";
 
 function App() {
   return (
@@ -20,6 +23,15 @@ function App() {
             </Route>
             <Route path="/blogs/:id">
               <BlogDetails />
+            </Route>
+            <Route path="/register">
+              <Register />
+            </Route>
+            <Route path="/login">
+              <Login />
+            </Route>
+            <Route path="/logout">
+              <Logout />
             </Route>
             <Route path="*">
               <NotFound />

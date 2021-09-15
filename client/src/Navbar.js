@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const Navbar = () => {
   return (
@@ -6,7 +7,10 @@ const Navbar = () => {
       <h1>Johnny's Blog</h1>
       <div className="links">
         <Link to="/">Home</Link>
-        <Link to="/create">New Blog</Link>
+        {Cookies.get("webToken") && <Link to="/create">New Blog</Link>}
+        {!Cookies.get("webToken") && <Link to="/register">Register</Link>}
+        {!Cookies.get("webToken") && <Link to="/login">Login</Link>}
+        {Cookies.get("webToken") && <Link to="/logout">Logout</Link>}
       </div>
     </nav>
   );
