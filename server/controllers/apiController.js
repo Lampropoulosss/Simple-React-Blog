@@ -1,5 +1,6 @@
 const { v4: uuidv4 } = require("uuid");
 const connection = require("../sql/connection");
+const { decryptToken } = require("../other/utilities");
 
 // Get All Blogs
 const getBlogs = (req, res) => {
@@ -10,19 +11,36 @@ const getBlogs = (req, res) => {
 };
 
 // Create a new blog
-const postBlog = (req, res) => {
-  const sql = "INSERT INTO blogs SET ?";
-  const blog = {
-    id: uuidv4(),
-    title: req.body.title,
-    body: req.body.body,
-    author: req.body.author,
-  };
+const postBlog = async (req, res) => {
+  if (!req.body.title || !req.body.body) {
+    return res.status(400).json({ error: "Please fill all fields" });
+  }
 
-  connection.query(sql, blog, (err, result) => {
-    if (err) throw err;
-    res.json(result);
-  });
+  const email = await decryptToken(req.cookies.webToken);
+  connection.query(
+    `SELECT firstName, lastName FROM users WHERE email = "${email.email.email}"`,
+    (err, data) => {
+      if (err) throw err;
+      if (data.length < 1) {
+        return res.status(400).json({
+          error: "Please log out and log in again",
+        });
+      }
+
+      const sql = "INSERT INTO blogs SET ?";
+      const blog = {
+        id: uuidv4(),
+        title: req.body.title,
+        body: req.body.body,
+        author: `${data[0].firstName} ${data[0].lastName}`,
+      };
+
+      connection.query(sql, blog, (err, result) => {
+        if (err) throw err;
+        res.json(result);
+      });
+    }
+  );
 };
 
 const getBlog = (req, res) => {
@@ -40,7 +58,7 @@ const deleteBlog = (req, res) => {
     `DELETE FROM blogs WHERE id = "${req.params.id}"`,
     (err, result) => {
       if (err) throw err;
-      res.json(result);
+      res.json({ msg: "Deleted" });
     }
   );
 };

@@ -1,12 +1,12 @@
 const express = require("express");
 const apiController = require("../controllers/apiController");
-const { requireAuth } = require("../other/utilities");
+const { requireAuth, requireAdmin } = require("../other/utilities");
 
 const router = express.Router();
 
 router.get("/blogs", apiController.getBlogs);
-router.post("/blogs", requireAuth, apiController.postBlog);
+router.post("/blogs", requireAdmin, apiController.postBlog);
 router.get("/blogs/:id", apiController.getBlog);
-router.delete("/blogs/:id", apiController.deleteBlog);
+router.delete("/blogs/:id", requireAdmin, apiController.deleteBlog);
 
 module.exports = router;

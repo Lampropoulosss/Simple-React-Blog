@@ -5,7 +5,6 @@ const Create = () => {
   const [error, setError] = useState("");
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
-  const [author, setAuthor] = useState("John");
   const [isPending, setIsPending] = useState(false);
   const history = useHistory();
 
@@ -14,10 +13,10 @@ const Create = () => {
     const blog = {
       title,
       body,
-      author,
     };
 
     setIsPending(true);
+    setError("");
 
     fetch("http://localhost:8000/api/blogs", {
       method: "POST",
@@ -52,7 +51,6 @@ const Create = () => {
         <label>Blog Title:</label>
         <input
           type="text"
-          required
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
@@ -60,17 +58,9 @@ const Create = () => {
         <textarea
           value={body}
           onChange={(e) => setBody(e.target.value)}
-          required
         ></textarea>
         <label>Blog Author:</label>
-        <select value={author} onChange={(e) => setAuthor(e.target.value)}>
-          <option value="John">John</option>
-          <option value="Lyif">Lyif</option>
-          <option value="Shoot">Shoot</option>
-          <option value="Ben">Ben</option>
-          <option value="Jakob">Jakob</option>
-          <option value="Luke">Luke</option>
-        </select>
+        <input placeholder="Your Name" disabled />
         {!isPending && <button>Add Blog</button>}
         {isPending && <button disabled>Adding blog...</button>}
       </form>

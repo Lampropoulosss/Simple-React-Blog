@@ -1,7 +1,10 @@
 import { useParams, useHistory } from "react-router-dom";
+import { useState } from "react";
 import useFetch from "./useFetch";
+import Cookies from "js-cookie";
 
 const BlogDetails = () => {
+  const [errors, setErrors] = useState("");
   const { id } = useParams();
   const history = useHistory();
   const {
@@ -13,9 +16,15 @@ const BlogDetails = () => {
   const handleDelete = () => {
     fetch("http://localhost:8000/api/blogs/" + blog[0].id, {
       method: "DELETE",
-    }).then(() => {
-      history.push("/");
-    });
+      credentials: "include",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.error) {
+          return setErrors(data.error);
+        }
+        history.push("/");
+      });
   };
 
   return (
@@ -23,6 +32,11 @@ const BlogDetails = () => {
       {isPending && (
         <div>
           <p>Loading...</p>
+        </div>
+      )}
+      {errors && (
+        <div>
+          <p className="error">{errors}</p>
         </div>
       )}
       {error && (
@@ -33,11 +47,13 @@ const BlogDetails = () => {
       {blog && (
         <article>
           <h2>{blog[0].title}</h2>
-          <p>Written by {blog[0].author}</p>
+          <p className="written-by">Written by {blog[0].author}</p>
           <div>
             <p>{blog[0].body}</p>
           </div>
-          <button onClick={handleDelete}>Delete</button>
+          {Cookies.get("webToken") && (
+            <button onClick={handleDelete}>Delete</button>
+          )}
         </article>
       )}
     </div>

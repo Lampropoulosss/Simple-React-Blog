@@ -70,6 +70,10 @@
   cursor: pointer;
 }
 
+.blog-details .written-by {
+  font-size: 0.9rem;
+}
+
 /* create new blog form / register / login */
 .create,
 .register,
@@ -120,6 +124,10 @@
 .login .error {
   color: #f56;
   margin: 20px 0;
+}
+
+.blog-details .error {
+  color: #f56;
 }
 
 /* 404 Page */

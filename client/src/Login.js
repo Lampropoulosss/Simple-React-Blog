@@ -39,7 +39,7 @@ const Login = () => {
 
   return (
     <div className="login">
-      <h2>Log in your account</h2>
+      <h2>Log in to Your Account</h2>
       {error && (
         <div>
           <p className="error">{error}</p>
