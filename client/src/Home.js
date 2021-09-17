@@ -6,7 +6,7 @@ const Home = () => {
     data: blogs,
     isPending,
     error,
-  } = useFetch("http://localhost:8000/api/blogs");
+  } = useFetch("https://lampropoulos.me/api/blogs");
 
   return (
     <div className="home">

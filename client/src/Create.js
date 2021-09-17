@@ -18,12 +18,12 @@ const Create = () => {
     setIsPending(true);
     setError("");
 
-    fetch("http://localhost:8000/api/blogs", {
+    fetch("https://lampropoulos.me/api/blogs", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: "include",
+      credentials: "same-origin",
       body: JSON.stringify(blog),
     })
       .then((response) => response.json())

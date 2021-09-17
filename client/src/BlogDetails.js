@@ -11,12 +11,12 @@ const BlogDetails = () => {
     data: blog,
     isPending,
     error,
-  } = useFetch("http://localhost:8000/api/blogs/" + id);
+  } = useFetch("https://lampropoulos.me/api/blogs/" + id);
 
   const handleDelete = () => {
-    fetch("http://localhost:8000/api/blogs/" + blog[0].id, {
+    fetch("https://lampropoulos.me/api/blogs/" + blog[0].id, {
       method: "DELETE",
-      credentials: "include",
+      credentials: "same-origin",
     })
       .then((response) => response.json())
       .then((data) => {
@@ -49,7 +49,7 @@ const BlogDetails = () => {
           <h2>{blog[0].title}</h2>
           <p className="written-by">Written by {blog[0].author}</p>
           <div>
-            <p>{blog[0].body}</p>
+            <pre className="pre">{blog[0].body}</pre>
           </div>
           {Cookies.get("webToken") && (
             <button onClick={handleDelete}>Delete</button>

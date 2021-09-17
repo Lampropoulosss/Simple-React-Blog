@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useEffect } from "react";
 import Cookies from "js-cookie";
 
 const Login = () => {
@@ -7,34 +8,53 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  useEffect(() => {
+    const script = document.createElement("script");
+
+    script.src =
+      "https://www.google.com/recaptcha/api.js?render=6Ler0HIcAAAAAMh8uvNlxXthHB0oC00r27ocDQn3";
+    script.async = true;
+
+    document.body.appendChild(script);
+  }, []);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsPending(true);
     setError("");
-    const user = {
-      email,
-      password,
-    };
 
-    fetch("http://localhost:8000/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify(user),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.error) {
-          setError(data.error);
-          setIsPending(false);
-        } else {
-          Cookies.set("webToken", data.token, { expires: 7 });
-          window.location.replace("/");
-        }
-      })
-      .catch(() => setIsPending(false));
+    window.grecaptcha.ready(function () {
+      window.grecaptcha
+        .execute("6Ler0HIcAAAAAMh8uvNlxXthHB0oC00r27ocDQn3", {
+          action: "login",
+        })
+        .then(function (captcha) {
+          const user = {
+            email,
+            password,
+          };
+
+          fetch("https://lampropoulos.me/auth/login", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "same-origin",
+            body: JSON.stringify({ user, captcha }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.error) {
+                setError(data.error);
+                setIsPending(false);
+              } else {
+                Cookies.set("webToken", data.token, { expires: 7 });
+                window.location.replace("/");
+              }
+            })
+            .catch(() => setIsPending(false));
+        });
+    });
   };
 
   return (
@@ -59,7 +79,7 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        {!isPending && <button>Login</button>}
+        {!isPending && <button data-action="login">Login</button>}
         {isPending && <button disabled>Please Wait...</button>}
       </form>
     </div>

@@ -61,6 +61,9 @@
 .blog-details div {
   margin: 20px 0;
 }
+.blog-details .pre {
+  white-space: pre-wrap;
+}
 .blog-details button {
   background-color: #0096ff;
   color: #fff;
@@ -142,4 +145,13 @@
 .not-found a {
   text-decoration: none;
   color: #0096ff;
+}
+
+@media only screen and (max-width: 450px) {
+  .navbar .links {
+    font-size: 0.8rem;
+  }
+  .navbar h1 {
+    font-size: 0.9rem;
+  }
 }
