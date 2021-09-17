@@ -7,8 +7,11 @@ import NotFound from "./NotFound";
 import Register from "./Register";
 import Login from "./Login";
 import Logout from "./Logout";
+import useThemeSwitcher from "./useThemSwitcher";
 
 function App() {
+  const ThemeSwitcher = useThemeSwitcher();
+
   return (
     <Router>
       <div className="App">
@@ -38,6 +41,7 @@ function App() {
             </Route>
           </Switch>
         </div>
+        {ThemeSwitcher}
       </div>
     </Router>
   );

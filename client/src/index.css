@@ -5,6 +5,7 @@
   margin: 0;
   font-family: "Quicksand";
   color: #333;
+  transition: background-color 200ms;
 }
 .navbar {
   padding: 20px;
@@ -38,6 +39,7 @@
 .blog-preview {
   padding: 10px 16px;
   margin: 20px 0;
+  transition: border-bottom 200ms;
   border-bottom: 1px solid #fafafa;
 }
 .blog-preview:hover {
@@ -154,4 +156,22 @@
   .navbar h1 {
     font-size: 0.9rem;
   }
+}
+
+.dark-mode {
+  background-color: #202124;
+}
+.dark-mode .blog-preview {
+  background-color: #2d2e31;
+  border-bottom: none;
+}
+.blog-preview:hover {
+  box-shadow: 1px 6px 5px rgba(0, 0, 0, 0.1);
+}
+.dark-mode * {
+  color: #fff;
+}
+.dark-mode input,
+.dark-mode textarea {
+  background-color: #313236;
 }
