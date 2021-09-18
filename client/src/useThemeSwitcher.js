@@ -4,7 +4,7 @@ const useThemeSwitcher = () => {
   const [theme, setTheme] = useState(() => localStorage.getItem("theme"));
 
   const togglerStyles = {
-    position: "absolute",
+    position: "fixed",
     zIndex: 100,
     bottom: "1em",
     left: "1em",

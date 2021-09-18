@@ -7,7 +7,7 @@ import NotFound from "./NotFound";
 import Register from "./Register";
 import Login from "./Login";
 import Logout from "./Logout";
-import useThemeSwitcher from "./useThemSwitcher";
+import useThemeSwitcher from "./useThemeSwitcher";
 
 function App() {
   const ThemeSwitcher = useThemeSwitcher();
