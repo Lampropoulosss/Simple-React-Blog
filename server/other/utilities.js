@@ -63,7 +63,36 @@ const requireAdmin = async (req, res, next) => {
       }
       if (data[0].role === "admin") return next();
       return res.status(400).json({
-        error: "You must have administrator privileges to post / delete blogs",
+        error: "You must have administrator privileges to perform this action",
+      });
+    }
+  );
+};
+
+const requireContributor = async (req, res, next) => {
+  if (!req.cookies.webToken) {
+    return res.status(400).json({
+      error: "You must be logged in",
+    });
+  }
+  const secretKey = crypto.createSecretKey(
+    Buffer.from(keys.jwt.secretKey, "hex")
+  );
+  const { payload } = await jwtDecrypt(req.cookies.webToken, secretKey);
+
+  connection.query(
+    `SELECT role FROM users WHERE email = "${payload.email.email}" LIMIT 1`,
+    (err, data) => {
+      if (err) throw err;
+      if (data.length < 1) {
+        return res.status(400).json({
+          error: "Please log out and log in again",
+        });
+      }
+      if (data[0].role === "contributor" || data[0].role === "admin")
+        return next();
+      return res.status(400).json({
+        error: "You must be a contributor to perform this action",
       });
     }
   );
@@ -112,4 +141,5 @@ module.exports = {
   requireAuth,
   requireNoAuth,
   requireAdmin,
+  requireContributor,
 };
