@@ -78,6 +78,9 @@
 .blog-details .written-by {
   font-size: 0.9rem;
 }
+.blog-details a {
+  color: #0096ff;
+}
 
 /* create new blog form / register / login */
 .create,

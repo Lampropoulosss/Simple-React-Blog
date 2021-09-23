@@ -2,6 +2,7 @@ import { useParams, useHistory } from "react-router-dom";
 import { useState } from "react";
 import useFetch from "./useFetch";
 import Cookies from "js-cookie";
+import DOMPurify from "dompurify";
 
 const BlogDetails = () => {
   const [errors, setErrors] = useState("");
@@ -49,7 +50,13 @@ const BlogDetails = () => {
           <h2>{blog[0].title}</h2>
           <p className="written-by">Written by {blog[0].author}</p>
           <div>
-            <pre className="pre">{blog[0].body}</pre>
+            {/* <pre className="pre">{blog[0].body}</pre> */}
+            <pre
+              className="pre"
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(blog[0].body),
+              }}
+            ></pre>
           </div>
           {Cookies.get("webToken") && (
             <button onClick={handleDelete}>Delete</button>
