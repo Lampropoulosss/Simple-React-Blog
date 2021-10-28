@@ -3,9 +3,16 @@
 
 module.exports = {
   sql: {
-    host: "Your Host",
-    user: "Your User",
-    password: "Your Password",
-    database: "Your Database",
+    host: "",
+    user: "",
+    password: "",
+    port: 0000, //Replace 000 with your Database's Port
+    database: "",
+  },
+  jwt: {
+    secretKey: "",
+  },
+  captcha: {
+    secretKey: "",
   },
 };
