@@ -60,6 +60,11 @@
   color: #0096ff;
   margin-bottom: 10px;
 }
+.blog-details .posted {
+  font-size: 0.9rem;
+  color: #0096ff;
+  margin-bottom: 10px;
+}
 .blog-details div {
   margin: 20px 0;
 }
@@ -68,6 +73,7 @@
 }
 .blog-details button {
   background-color: #0096ff;
+  margin-right: 10px;
   color: #fff;
   border: 0;
   padding: 8px;

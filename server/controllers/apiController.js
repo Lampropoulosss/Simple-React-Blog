@@ -4,10 +4,13 @@ const { decryptToken } = require("../other/utilities");
 
 // Get All Blogs
 const getBlogs = (req, res) => {
-  connection.query("SELECT * FROM blogs", (err, result) => {
-    if (err) throw err;
-    res.json(result);
-  });
+  connection.query(
+    "SELECT id, title, author, creationDate FROM blogs",
+    (err, result) => {
+      if (err) throw err;
+      res.json(result);
+    }
+  );
 };
 
 // Create a new blog
@@ -28,10 +31,15 @@ const postBlog = async (req, res) => {
       }
 
       const sql = "INSERT INTO blogs SET ?";
+      const today = new Date();
       const blog = {
         id: uuidv4(),
         title: req.body.title,
         body: req.body.body,
+        creationDate: `${today.getDate()}${
+          today.getMonth() + 1
+        }${today.getFullYear()}`,
+        edited: 0,
         author: `${data[0].firstName} ${data[0].lastName}`,
       };
 

@@ -3,6 +3,7 @@ import { useState } from "react";
 import useFetch from "./useFetch";
 import Cookies from "js-cookie";
 import DOMPurify from "dompurify";
+import moment from "moment";
 
 const BlogDetails = () => {
   const [errors, setErrors] = useState("");
@@ -58,6 +59,10 @@ const BlogDetails = () => {
               }}
             ></pre>
           </div>
+          <p className="posted">
+            Posted: {moment(blog[0].creationDate, "DDMMYYYY").fromNow()}
+          </p>
+          {Cookies.get("webToken") && <button>Edit</button>}
           {Cookies.get("webToken") && (
             <button onClick={handleDelete}>Delete</button>
           )}
