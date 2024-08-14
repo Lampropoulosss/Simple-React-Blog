@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 const Navbar = () => {
   return (
     <nav className="navbar">
-      <h1>Johnny's Blog</h1>
+      <h1>Blog Website</h1>
       <div className="links">
         <Link to="/">Home</Link>
         {Cookies.get("webToken") && <Link to="/create">New Blog</Link>}

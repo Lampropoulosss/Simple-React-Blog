@@ -13,8 +13,8 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: false }));
 app.use(
   cors({
-    // origin: ["http://localhost:3000", "http://localhost:5000"],
-    origin: "https://lampropoulos.me",
+    // origin: ["http://localhost:3000", "http://localhost:8000"],
+    origin: "https://localhost:8000",
     methods: ["GET", "POST", "DELETE"],
     credentials: true,
   })

@@ -1,4 +1,4 @@
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import useFetch from "./useFetch";
 import Cookies from "js-cookie";
@@ -8,15 +8,11 @@ import moment from "moment";
 const BlogDetails = () => {
   const [errors, setErrors] = useState("");
   const { id } = useParams();
-  const history = useHistory();
-  const {
-    data: blog,
-    isPending,
-    error,
-  } = useFetch("https://lampropoulos.me/api/blogs/" + id);
+  const navigate = useNavigate();
+  const { data: blog, isPending, error } = useFetch("/api/blogs/" + id);
 
   const handleDelete = () => {
-    fetch("https://lampropoulos.me/api/blogs/" + blog[0].id, {
+    fetch("/api/blogs/" + blog[0].id, {
       method: "DELETE",
       credentials: "same-origin",
     })
@@ -25,7 +21,7 @@ const BlogDetails = () => {
         if (data.error) {
           return setErrors(data.error);
         }
-        history.push("/");
+        navigate("/");
       });
   };
 

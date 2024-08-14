@@ -6,11 +6,11 @@ module.exports = {
     host: "",
     user: "",
     password: "",
-    port: 0000, //Replace 000 with your Database's Port
+    port: 0000, // Replace 000 with your Database's Port
     database: "",
   },
   jwt: {
-    secretKey: "",
+    secretKey: "", // Use crypto.randomBytes(32).toString('hex') to generate a secret key
   },
   captcha: {
     secretKey: "",

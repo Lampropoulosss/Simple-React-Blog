@@ -11,57 +11,59 @@ const Register = () => {
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
 
-  useEffect(() => {
-    const script = document.createElement("script");
+  // useEffect(() => {
+  //   const script = document.createElement("script");
 
-    script.src =
-      "https://www.google.com/recaptcha/api.js?render=6Ler0HIcAAAAAMh8uvNlxXthHB0oC00r27ocDQn3";
-    script.async = true;
+  //   script.src =
+  //     "https://www.google.com/recaptcha/api.js?render=6Ler0HIcAAAAAMh8uvNlxXthHB0oC00r27ocDQn3";
+  //   script.async = true;
 
-    document.body.appendChild(script);
-  }, []);
+  //   document.body.appendChild(script);
+  // }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsPending(true);
     setError("");
-    window.grecaptcha.ready(function () {
-      window.grecaptcha
-        .execute("6Ler0HIcAAAAAMh8uvNlxXthHB0oC00r27ocDQn3", {
-          action: "register",
-        })
-        .then(function (captcha) {
-          const user = {
-            firstName,
-            lastName,
-            email,
-            password1,
-            password2,
-          };
 
-          fetch("https://lampropoulos.me/auth/register", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            credentials: "same-origin",
-            // body: JSON.stringify(user),
-            body: JSON.stringify({ user, captcha }),
-          })
-            .then((response) => response.json())
-            .then((data) => {
-              if (data.error) {
-                setError(data.error);
-                setIsPending(false);
-              } else {
-                Cookies.set("webToken", data.token, { expires: 7 });
-                window.location.replace("/");
-                // history.push("/");
-              }
-            })
-            .catch(() => setIsPending(false));
-        });
-    });
+    // window.grecaptcha.ready(function () {
+    //   window.grecaptcha
+    //     .execute("6Ler0HIcAAAAAMh8uvNlxXthHB0oC00r27ocDQn3", {
+    //       action: "register",
+    //     })
+    //     .then(function (captcha) {
+    //     });
+    // });
+
+    const user = {
+      firstName,
+      lastName,
+      email,
+      password1,
+      password2,
+    };
+
+    fetch("/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "same-origin",
+      // body: JSON.stringify(user),
+      // body: JSON.stringify({ user, captcha }),
+      body: JSON.stringify({ user }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.error) {
+          setError(data.error);
+          setIsPending(false);
+        } else {
+          Cookies.set("webToken", data.token, { expires: 7 });
+          window.location.replace("/");
+        }
+      })
+      .catch(() => setIsPending(false));
   };
 
   return (
